@@ -60,6 +60,7 @@ final class Easydirectory {
     }
 
     public function dispatch_hook(){
+        EasyDirectory\Api::init();
         if(is_admin()){
             EasyDirectory\Admin::init();
         }
