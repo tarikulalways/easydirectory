@@ -47,6 +47,7 @@ final class Easydirectory {
         define('EASYDIRECTORY_ASSETS_URL', EASYDIRECTORY_ROOT_URL . 'assets/');
         define('EASYDIRECTORY_SLUG', 'easydirectory');
         define('EASYDIRECTORY_SETTINGS', 'easydirectory_settings');
+        define('EASYDIRECTORY_PLUGIN_VERSION', '1.0.0');
     }
 
     public function on_plugins_loaded(){
@@ -60,7 +61,6 @@ final class Easydirectory {
     }
 
     public function dispatch_hook(){
-        EasyDirectory\Api::init();
         if(is_admin()){
             EasyDirectory\Admin::init();
         }

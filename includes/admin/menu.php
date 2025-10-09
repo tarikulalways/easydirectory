@@ -15,19 +15,16 @@ class Menu{
     }
 
     public function admin_menu_register(){
-        add_menu_page('EasyDirectory', 'EasyDirectory', 'manage_options', EASYDIRECTORY_SLUG, [$this, 'admin_dashboard'], '', 5);
-        add_submenu_page(EASYDIRECTORY_SLUG, 'all listings', 'All Listings', 'manage_options', 'all-listing', [$this, 'all_listings']);
+        add_menu_page($this->top_level_menu(), $this->top_level_menu(), 'manage_options', EASYDIRECTORY_SLUG, [$this, 'admin_dashboard'], '', 5);
     }
 
     public function admin_dashboard(){
         ?>
-        <div class="wrap easydirectory-wrap" id="easydirectory">comming soon...</div>
+        <div class="wrap easydirectory-wrap" id="easydirectory">Loading...</div>
         <?php
     }
 
-    public function all_listings(){
-        ?>
-        <div class="wrap easydirectory-wrap" id="easydirectory">All listings comming soon...</div>
-        <?php
+    public function top_level_menu(){
+        return 'EasyDirectory';
     }
 }
