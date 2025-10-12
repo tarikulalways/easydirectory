@@ -16,6 +16,8 @@ class Menu{
 
     public function admin_menu_register(){
         add_menu_page($this->top_level_menu(), $this->top_level_menu(), 'manage_options', EASYDIRECTORY_SLUG, [$this, 'admin_dashboard'], '', 5);
+
+        add_submenu_page(EASYDIRECTORY_SLUG, $this->top_level_submenu(), $this->top_level_submenu(), 'manage_options', 'easy-listing', [$this, 'admin_dashboard_submenu']);
     }
 
     public function admin_dashboard(){
@@ -24,7 +26,15 @@ class Menu{
         <?php
     }
 
+    public function admin_dashboard_submenu(){
+        echo 'comming soon...';
+    }
+
     public function top_level_menu(){
         return 'EasyDirectory';
+    }
+
+    public function top_level_submenu(){
+        return 'All Listings';
     }
 }

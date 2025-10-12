@@ -11,7 +11,6 @@ class Api{
     }
 
     public function dispatch_api_hook(){
-        API\PostType::init();
-        error_log('hi');
+        API\Terms::init();
     }
 }
