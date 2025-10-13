@@ -29,10 +29,6 @@ class Terms {
         $term_name = sanitize_text_field( $request->get_param('term_name') );
         $args = $request->get_param('args') ? : []; 
 
-        $post_type = get_taxonomy('easy_directory');
-        print_r($post_type->object_type);
-        exit;
-
         if ( empty($term_name) ) {
             return new \WP_Error( 'missing_term_name', 'Term name is required.', array( 'status' => 400 ) );
         }
