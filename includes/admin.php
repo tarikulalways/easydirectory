@@ -16,5 +16,7 @@ class Admin{
 
     public function dispatch_admin_hook(){
         Admin\Menu::init();
+        Admin\Taxonomy\Taxonomy::init();
+        Admin\PostType\PostType::init();
     }
 }
