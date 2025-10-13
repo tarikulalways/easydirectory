@@ -11,19 +11,23 @@ class Taxonomy {
     }
 
     public function register_taxonomies(){
-        $labels = array(
-            'name' => __('Directories', 'easydirectory'),
-            'singular_name' => __('Directory', 'easydirectory')
-        );
 
-        $args = array(
-            'labels' => $labels,
-            'hierarchical' => true,
-            'rewrite' => array(
-                'slug' => 'easydirectory'
+        $object_type = 'easydirectory_types';
+
+        register_taxonomy(
+            'easy_directory',
+            $object_type,
+            array(
+                'labels' => array(
+                    'name' => __('Directories', 'easydirectory'),
+                    'singular_name' => __('Directory', 'easydirectory')
+                ),
+                'public' => true,
+                'show_in_menu' => false,
+                'show_ui' => false,
+                'hierarchical' => true
             )
         );
-
-        register_taxonomy('easy_directory', '', $args);
+        
     }
 }

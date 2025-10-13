@@ -61,11 +61,8 @@ final class Easydirectory {
     }
 
     public function dispatch_hook(){
+        EasyDirectory\Admin::init();
         EasyDirectory\Api::init();
-        
-        if(is_admin()){
-            EasyDirectory\Admin::init();
-        }
     }
 
     public function load_dependency(){
