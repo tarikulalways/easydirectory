@@ -16,14 +16,62 @@ class Terms {
     }
 
     public function register_term_routes(){
+        // get_terms
         register_rest_route($this->namespace, $this->route, [
-            'methods' => 'POST',
+            'methods' => 'GET',
             'callback' => [$this, 'get_terms'],
             'permission_callback' => '__return_true'
         ]);
+
+        // post_term
+        register_rest_route($this->namespace, $this->route, [
+            'methods' => 'POST',
+            'callback' => [$this, 'post_terms'],
+            'permission_callback' => '__return_true'
+        ]);
+
+        // update_term
+        register_rest_route($this->namespace, $this->route . '/(?P<id>\d+)', [
+            'methods' => 'PUT',
+            'callback' => [$this, 'update_term'],
+            'permission_callback' => '__return_true'
+        ]);
+
+        // delete_term
+        register_rest_route($this->namespace, $this->route . '/(?P<id>\d+)', [
+            'methods' => 'DELETE',
+            'callback' => [$this, 'delete_term'],
+            'permission_callback' => '__return_true'
+        ]);
+    }
+
+    // get_terms
+    public function get_terms(){
+        $taxonomy = 'easy_directory';
+        $term = array(
+            'taxonomy' => $taxonomy,
+            'hide_empty' => false
+        );
+
+        $terms = get_terms($term);
+        
+        if(empty($terms)){
+            return rest_ensure_response([
+                'message' => 'Terms not found',
+                'status' => false
+            ]);
+        }else{
+            return rest_ensure_response([
+                'data' => $terms,
+                'status' => true,
+                'total_terms' => count($terms),
+                'code'    => 'taxonomy_query_failed',
+            ]);
+        }
     }
     
-    public function get_terms($request) {
+    // post_terms
+    public function post_terms($request) {
 
         $taxonomy = 'easy_directory';
         $term_name = sanitize_text_field( $request->get_param('term_name') );
