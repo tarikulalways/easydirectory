@@ -1,6 +1,6 @@
 <?php
 
-namespace EasyDirectory\API;
+namespace EasyDirectory\API\Controller;
 
 use EasyDirectory\Helper;
 
@@ -16,25 +16,60 @@ class Terms {
     }
 
     public function register_term_routes(){
-        // get_terms
+        // get_items
         register_rest_route($this->namespace, $this->route, [
             'methods' => 'GET',
-            'callback' => [$this, 'get_terms'],
+            'callback' => [$this, 'get_items'],
             'permission_callback' => '__return_true'
         ]);
 
-        // post_term
+        // create_item
         register_rest_route($this->namespace, $this->route, [
             'methods' => 'POST',
-            'callback' => [$this, 'post_terms'],
-            'permission_callback' => '__return_true'
+            'callback' => [$this, 'create_item'],
+            'permission_callback' => '__return_true',
+            'args' => array(
+                'term_name' => array(
+                    'required' => true,
+                    'type' => 'string',
+                    'validate_callback' => function($term_name){
+                        if(is_string($term_name)){
+                            return $term_name;
+                        }
+                    }
+                )
+            )
         ]);
 
         // update_term
         register_rest_route($this->namespace, $this->route . '/(?P<id>\d+)', [
             'methods' => 'PUT',
-            'callback' => [$this, 'update_term'],
-            'permission_callback' => '__return_true'
+            'callback' => [$this, 'update_item'],
+            'permission_callback' => '__return_true',
+            'args' => array(
+                'id' => array(
+                    'required' => true,
+                    'type' => 'integer'
+                )
+            )
+        ]);
+
+        // get_item
+        register_rest_route($this->namespace, $this->route . '/(?P<id>\d+)', [
+            'methods' => 'GET',
+            'callback' => [$this, 'get_item'],
+            'permission_callback' => '__return_true',
+            'args' => array(
+                'id' => array(
+                    'type' => 'integer',
+                    'required' => true,
+                    'validate_callback' => function($id){
+                        if(is_numeric($id)){
+                            return $id;
+                        }
+                    }
+                )
+            )
         ]);
 
         // delete_term

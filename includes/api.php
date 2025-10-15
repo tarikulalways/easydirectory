@@ -11,6 +11,6 @@ class Api{
     }
 
     public function dispatch_api_hook(){
-        API\Terms::init();
+        API\Controller\Terms::init();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace EasyDirectory\API;
+namespace EasyDirectory\API\Controller;
 
 class PostItems {
 
