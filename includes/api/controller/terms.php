@@ -8,6 +8,8 @@ class Terms {
 
     protected $namespace = EASYDIRECTORY_SLUG . '/v1';
     protected $route = '/terms';
+    
+    private $taxonomy_name = 'easy_directory';
 
     public static function init(){
         $self = new self();
@@ -26,7 +28,7 @@ class Terms {
         // create_item
         register_rest_route($this->namespace, $this->route, [
             'methods' => 'POST',
-            'callback' => [$this, 'create_item'],
+            'callback' => [$this, 'create_items'],
             'permission_callback' => '__return_true',
             'args' => array(
                 'term_name' => array(
@@ -80,11 +82,10 @@ class Terms {
         ]);
     }
 
-    // get_terms
-    public function get_terms(){
-        $taxonomy = 'easy_directory';
+    // get_items
+    public function get_items(){
         $term = array(
-            'taxonomy' => $taxonomy,
+            'taxonomy' => $this->taxonomy_name,
             'hide_empty' => false
         );
 
@@ -106,9 +107,7 @@ class Terms {
     }
     
     // post_terms
-    public function post_terms($request) {
-
-        $taxonomy = 'easy_directory';
+    public function create_items($request) {
         $term_name = sanitize_text_field( $request->get_param('term_name') );
         $args = $request->get_param('args') ? : []; 
 
@@ -119,7 +118,7 @@ class Terms {
 
         $result = wp_insert_term(
             $term_name,
-            $taxonomy,
+            $this->taxonomy_name,
             $args
         );
 
@@ -138,6 +137,18 @@ class Terms {
                 'status'  => true,
                 'term_id' => $result['term_id'],
             ]);
+
+            do_action('easydirectory/after_insert_term', $result);
         }
+    }
+
+    // update_item
+
+    public function update_item($request){
+        $term_id = absint($request->get_param('id'));
+
+        $update_id = wp_update_term($term_id, $this->taxonomy_name, [
+            'name' => 
+        ]);
     }
 }

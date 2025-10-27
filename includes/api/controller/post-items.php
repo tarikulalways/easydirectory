@@ -40,6 +40,7 @@ class PostItems {
                 'message' => 'Post Create success',
                 'status' => true
             ]);
+            do_action('easydirectory/after_insert_post', $post_id);
         }else{
             return rest_ensure_response([
                 'message' => 'Post not Create',

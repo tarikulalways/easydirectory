@@ -13,9 +13,10 @@ class Taxonomy {
     public function register_taxonomies(){
 
         $object_type = 'easydirectory_types';
+        $taxonomy_name = 'easy_directory';
 
-        register_taxonomy(
-            'easy_directory',
+        $taxonomy_register = register_taxonomy(
+            $taxonomy_name,
             $object_type,
             array(
                 'labels' => array(
@@ -28,6 +29,10 @@ class Taxonomy {
                 'hierarchical' => true
             )
         );
+
+        if($taxonomy_register){
+            do_action('easydirectory/after_register_taxonomy');
+        }
         
     }
 }
