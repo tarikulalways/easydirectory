@@ -148,7 +148,7 @@ class Terms {
         $term_id = absint($request->get_param('id'));
 
         $update_id = wp_update_term($term_id, $this->taxonomy_name, [
-            'name' => 
+             
         ]);
     }
 }
