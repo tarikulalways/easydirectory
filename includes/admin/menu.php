@@ -15,26 +15,22 @@ class Menu{
     }
 
     public function admin_menu_register(){
-        add_menu_page($this->top_level_menu(), $this->top_level_menu(), 'manage_options', EASYDIRECTORY_SLUG, [$this, 'admin_dashboard'], '', 5);
-
-        add_submenu_page(EASYDIRECTORY_SLUG, $this->top_level_submenu(), 'All Listings', 'manage_options', 'all_listings', [$this, 'admin_dashboard_submenu']);
+        add_menu_page('EasyDirectory', 'EasyDirectory', 'manage_options', EASYDIRECTORY_SLUG, [$this, 'load_main_template'], '', 5);
+        add_submenu_page(EASYDIRECTORY_SLUG, 'Dashboard', 'Dashboard', 'manage_options', EASYDIRECTORY_SLUG, [$this, 'load_main_template']);
+        add_submenu_page(EASYDIRECTORY_SLUG, 'All Listing', 'All Listing', 'manage_options', EASYDIRECTORY_SLUG . '-all-listing', [$this, 'load_main_template']);
     }
 
-    public function admin_dashboard(){
-        ?>
-        <div class="wrap easydirectory-wrap" id="easydirectory">Loading...</div>
-        <?php
-    }
+    public function load_main_template(){
+        $page = sanitize_text_field($_GET['page']);
 
-    public function admin_dashboard_submenu(){
-        echo 'comming soon...';
-    }
-
-    public function top_level_menu(){
-        return 'EasyDirectory';
-    }
-
-    public function top_level_submenu(){
-        return apply_filters('easydirectory/top_level_submenu', 'EasyDirectory');
+        switch($page){
+            case EASYDIRECTORY_SLUG:
+                echo '<div class="easyinventory">Dashboard Page</div>';
+                break;
+            case EASYDIRECTORY_SLUG . '-all-listing':
+                echo '<div class="easyinventory">All Listing Page</div>';
+                break;
+        }
+        
     }
 }

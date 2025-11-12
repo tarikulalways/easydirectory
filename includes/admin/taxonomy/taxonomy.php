@@ -12,7 +12,7 @@ class Taxonomy {
 
     public function register_taxonomies(){
 
-        $object_type = 'easydirectory_types';
+        $object_type = 'easy_hotel_listing';
         $taxonomy_name = 'easy_directory';
 
         $taxonomy_register = register_taxonomy(

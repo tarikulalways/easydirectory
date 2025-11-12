@@ -26,7 +26,7 @@ class PostItems {
         $post_content = $request->get_param('post_content');
         $post_status = $request->get_param('post_status');
         $post_author = $request->get_param('post_author');
-        $post_type = 'easydirectory_types';
+        $post_type = 'easy_hotel_listing';
 
         $post_id = wp_insert_post(array(
             'post_title' => $post_title,
